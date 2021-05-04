@@ -4,7 +4,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.removeDuplicates2(new int[]{1, 2, 3, 4, 5}));
+        System.out.println(solution.removeDuplicates3(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}));
     }
 
     public int removeDuplicates(int[] nums) {
@@ -33,12 +33,12 @@ public class Solution {
                 if (right == nums.length - 1 && nums[left] == nums[right]) {
                     repeatLen++;
                     nums[res] = nums[right];
-                    res ++;
+                    res++;
                     left += repeatLen;
                     break;
                 }
                 nums[res] = nums[right];
-                res ++;
+                res++;
                 left += repeatLen;
                 break;
             }
@@ -54,6 +54,24 @@ public class Solution {
                 if (left != right) nums[++left] = nums[right];
                 left++;
             }
+        }
+        return left + 1;
+    }
+
+    /**
+     * 时间复杂度O(n)
+     * 空间复杂度O(1)
+     */
+    public int removeDuplicates3(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int len = nums.length;
+        int left = 0;
+        for (int right = 1; right < len;) {
+            if (nums[left] == nums[right]) {
+                right++;
+                continue;
+            }
+            nums[++left] = nums[right];
         }
         return left + 1;
     }
