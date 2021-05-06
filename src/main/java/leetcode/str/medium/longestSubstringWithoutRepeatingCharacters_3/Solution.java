@@ -79,16 +79,23 @@ public class Solution {
         return Math.max(maxLen, len);
     }
 
+    /**
+     * 时间复杂度O(n)
+     * 空间复杂度O(1)
+     */
     public int lengthOfLongestSubstring3(String s) {
         if (s.length() == 0) return 0;
-        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> map = new HashMap<>();
         int max = 0;
         int left = 0;
         for (int i = 0; i < s.length(); i++) {
             if (map.containsKey(s.charAt(i))) {
+                // 获取最左边的位置，即当前出现过元素的上一个位置 + 1
                 left = Math.max(left, map.get(s.charAt(i)) + 1);
             }
+            // 将元素位置加入到map
             map.put(s.charAt(i), i);
+            // 当前位置 - 最左边位置 + 1
             max = Math.max(max, i - left + 1);
         }
         return max;
