@@ -16,7 +16,7 @@ public class Solution {
         l4.next = l5;
         l5.next = null;
         Solution solution = new Solution();
-        System.out.println(solution.reverseList1(l1));
+        System.out.println(solution.reverseList2(l1));
     }
 
     public ListNode reverseList(ListNode head) {
@@ -31,6 +31,10 @@ public class Solution {
         return res;
     }
 
+    /**
+     * 时间复杂度O(n)
+     * 空间复杂度O(1)
+     */
     public ListNode reverseList1(ListNode head) {
         // 1 -> 2 -> 3 -> 4
         ListNode newHead = null;
@@ -42,6 +46,25 @@ public class Solution {
             // head 置为 2
             head = tmpNode;
         }
+        return newHead;
+    }
+
+    /**
+     * 递归
+     * 时间复杂度O(n)
+     * 空间复杂度O(n)
+     */
+    public ListNode reverseList2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = reverseList2(head.next);
+        // 4-> 5->4-> 5 newHead = 5->4->^, head = 4
+        // 3-> 4->3-> 4 newHead = 5->4->3->^, head = 3
+        // 2-> 3->2-> 3 newHead = 5->4->3->2->^, head = 2
+        // 1-> 2->1-> 2 newHead = 5->4->3->2->1->^, head = 1
+        head.next.next = head;
+        head.next = null;
         return newHead;
     }
 }
