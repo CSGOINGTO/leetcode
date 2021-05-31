@@ -71,6 +71,9 @@ public class Solution {
         return max;
     }
 
+    /**
+     * 获取nums1和nums2分别从nums1Len和nums2Len出发，到len时，最长的公共部分
+     */
     private int maxLength(int[] nums1, int[] nums2, int nums1Start, int nums2Start, int len) {
         int res = 0;
         int tmp = 0;
@@ -83,51 +86,5 @@ public class Solution {
             res = Math.max(res, tmp);
         }
         return res;
-    }
-
-    public int findLength(int[] nums1, int[] nums2) {
-        if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) {
-            return 0;
-        }
-        int res = 0;
-        int maxLen = 0;
-        // 1,2,3,2,1
-        // 3,2,1,4,7
-        // 负责nums1的位置
-        int left = 0;
-        // 负责nums2的位置
-        int right = nums2.length - 1;
-        int len = 0;
-        while (len <= nums1.length + nums2.length - 1) {
-            len++;
-            // 当nums2还没有滑动完毕，nums1的初始位置不变，len由nums2决定
-            if (right >= 0) {
-                if (isMatch(nums1, nums2, 0, right, nums2.length - right)) {
-                    maxLen = Math.max(maxLen, nums2.length - right);
-                }
-                right--;
-                // 当nums2滑动完毕后，nums2的初始位置不变，len由nums1决定
-            } else {
-                if (isMatch(nums1, nums2, left, 0, nums1.length - left)) {
-                    maxLen = Math.max(maxLen, nums1.length - left);
-                }
-                left++;
-            }
-            res = Math.max(res, maxLen);
-        }
-        return res;
-    }
-
-    /**
-     * 判断相交的数组部分是否是公共部分
-     */
-    private boolean isMatch(int[] nums1, int[] nums2, int nums1Start, int nums2Start, int len) {
-        while (len > 0) {
-            if (nums1[nums1Start++] != nums2[nums2Start++]) {
-                return false;
-            }
-            len--;
-        }
-        return true;
     }
 }
