@@ -14,4 +14,18 @@ public class Solution {
         }
         return res;
     }
+
+    public ListNode deleteDuplicates1(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode fastNode = head.next;
+        ListNode slowNode = head;
+        while (slowNode != null) {
+            while (fastNode != null && fastNode.val == slowNode.val) {
+                fastNode = fastNode.next;
+            }
+            slowNode.next = fastNode;
+            slowNode = slowNode.next;
+        }
+        return head;
+    }
 }
