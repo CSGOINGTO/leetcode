@@ -14,7 +14,7 @@ public class Solution {
         ListNode l3 = new ListNode(2);
         l1.next = l2;
         l2.next = l3;
-        System.out.println(solution.deleteDuplicates(l1));
+        System.out.println(solution.deleteDuplicates1(l1));
     }
 
     public ListNode deleteDuplicates(ListNode head) {
@@ -40,6 +40,45 @@ public class Solution {
         for (ListNode node : list) {
             doHead.next = node;
             doHead = doHead.next;
+        }
+        doHead.next = null;
+        return newHead.next;
+    }
+
+    public ListNode deleteDuplicates1(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = new ListNode(-1);
+        ListNode doHead = newHead;
+        while (head != null) {
+            while (head != null && head.next != null && head.val == head.next.val) {
+                head = head.next;
+            }
+            if (head == null) {
+                doHead.next = head;
+                break;
+            }
+            if ((head != null && head.next != null && head.val != head.next.val) || (head != null && head.next == null)) {
+                doHead.next = head;
+                doHead = doHead.next;
+            }
+            head = head.next;
+        }
+        doHead.next = null;
+        return newHead.next;
+    }
+
+    public ListNode deleteDuplicates3(ListNode head) {
+        ListNode newHead = new ListNode(-1);
+        ListNode doHead = newHead;
+        while (head != null) {
+            // 进入循环时，确保了 head 不会与上一节点相同
+            if (head.next == null || head.val != head.next.val) {
+                doHead.next = head;
+                doHead = head;
+            }
+            // 如果 head 与下一节点相同，跳过相同节点
+            while (head.next != null && head.val == head.next.val) head = head.next;
+            head = head.next;
         }
         doHead.next = null;
         return newHead.next;
