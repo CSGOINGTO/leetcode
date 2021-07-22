@@ -18,7 +18,43 @@ public class Solution {
         l5.next = l6;
         l6.next = null;
         Solution solution = new Solution();
-        System.out.println(solution.reverseKGroup(l1, 6));
+        System.out.println(solution.reverseKGroup1(l1, 2));
+    }
+
+    public ListNode reverseKGroup1(ListNode head, int k) {
+        ListNode newHead = new ListNode(-1);
+        newHead.next = head;
+        ListNode doHead = newHead;
+        while (head != null) {
+            for (int i = 1; i < k && head != null; i++) {
+                head = head.next;
+            }
+            if (head == null) break;
+            ListNode startNode = doHead.next;
+            ListNode endNode = head;
+            // 下一个新节点
+            ListNode nextStartNode = endNode.next;
+            endNode.next = null;
+            // 将startNode到endNode的节点都翻转
+            // doHead指向翻转后的第一个节点
+            doHead.next = reverse(startNode);
+            // 把之前断的接上
+            startNode.next = nextStartNode;
+            doHead = startNode;
+            head = nextStartNode;
+        }
+        return newHead.next;
+    }
+
+    private ListNode reverse(ListNode startNode) {
+        ListNode newHead = null;
+        while (startNode != null) {
+            ListNode tmpNode = startNode.next;
+            startNode.next = newHead;
+            newHead = startNode;
+            startNode = tmpNode;
+        }
+        return newHead;
     }
 
     public ListNode reverseKGroup(ListNode head, int k) {
