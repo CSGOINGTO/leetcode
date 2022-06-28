@@ -1,6 +1,8 @@
 package offer.字符串的排列_38;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Solution {
 
@@ -45,7 +47,6 @@ public class Solution {
         chars[i] = chars[j];
         chars[j] = tmp;
     }
-
 
 
     public String[] permutation2(String s) {
