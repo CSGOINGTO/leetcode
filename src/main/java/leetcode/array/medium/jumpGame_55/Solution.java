@@ -1,4 +1,4 @@
-﻿package leetcode.array.medium.jumpGame_55;
+package leetcode.array.medium.jumpGame_55;
 
 public class Solution {
     public boolean canJump(int[] nums) {
